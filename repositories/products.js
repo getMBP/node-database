@@ -1,7 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 
-class UsersRepository {
+class ProductsRepository {
     constructor(filename) {
         if (!filename) {
             throw new Error('Creating a repository requires a filename');
@@ -34,8 +34,8 @@ class UsersRepository {
     async writeAll(records) {
         await fs.promises.writeFile(
             this.filename,
-            JSON.stringify(records, null, 2)
-        )
+            JSON.stringify(records, null, 4)
+        );
     }
     randomId() {
         return crypto.randomBytes(4).toString('hex');
@@ -83,16 +83,16 @@ class UsersRepository {
     }
 }
 
-// const test = async () => {
-//     const repo = new UsersRepository('users.json');
+const test = async() => {
+    const repo = new ProductsRepository('products.json');
 
-//     const user = await repo.create({email: 'pjrsteel@gmail.com', password: "fatfat"})
+    const product = await repo.create({ product: 'Flat Rolled Steel', type: "Galvanized", grade: "Grade-80", defects: "none", weight: 46000 })
 
-//     console.log(user);
-//     // await repo.getOneBy({ password: 'mypassword'})
-// }
-// test();
-module.exports = new UsersRepository('users.json');
+    console.log(product);
+    // await repo.getOneBy({ password: 'mypassword'})
+}
+test();
+// module.exports = new ProductsRepository('users.json');
 
 // ANOTHER FILE
 // const repo = require('./Users');
